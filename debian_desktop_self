@@ -2,6 +2,7 @@
 
 ## Install necessary packages for pyenv
 # https://github.com/pyenv/pyenv/wiki#suggested-build-environment
+/bin/sudo passwd root
 /bin/sudo /bin/apt update
 /bin/sudo /bin/apt install build-essential libssl-dev zlib1g-dev \
     libbz2-dev libreadline-dev libsqlite3-dev curl \
