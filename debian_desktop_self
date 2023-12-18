@@ -6,7 +6,7 @@
 /bin/sudo /bin/apt install build-essential libssl-dev zlib1g-dev \
     libbz2-dev libreadline-dev libsqlite3-dev curl \
     libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev \
-    git openssh-server wget
+    git openssh-server
 
 ## Install pyenv
 /bin/curl https://pyenv.run | /bin/bash
@@ -15,41 +15,41 @@
 # https://github.com/pyenv/pyenv#set-up-your-shell-environment-for-pyenv
 
 # shellcheck disable=SC2016
-/bin/grep 'export PYENV_ROOT="$HOME/.pyenv"' ~/.bashrc || {
-    /bin/echo 'export PYENV_ROOT="$HOME/.pyenv"' >>~/.bashrc
+/bin/grep 'export PYENV_ROOT="$HOME/.pyenv"' "$HOME"/.bashrc || {
+    /bin/echo 'export PYENV_ROOT="$HOME/.pyenv"' >>"$HOME"/.bashrc
 }
 
 # shellcheck disable=SC2016
 /bin/grep \
-    'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' ~/.bashrc || {
+    'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' "$HOME"/.bashrc || {
     /bin/echo \
-        'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >>~/.bashrc
+        'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >>"$HOME"/.bashrc
 }
 
 # shellcheck disable=SC2016
-/bin/grep 'eval "$(pyenv init -)"' ~/.bashrc || {
-    /bin/echo 'eval "$(pyenv init -)"' >>~/.bashrc
+/bin/grep 'eval "$(pyenv init -)"' "$HOME"/.bashrc || {
+    /bin/echo 'eval "$(pyenv init -)"' >>"$HOME"/.bashrc
 }
 
 # shellcheck disable=SC2016
-/bin/grep 'export PYENV_ROOT="$HOME/.pyenv"' ~/.profile || {
-    /bin/echo 'export PYENV_ROOT="$HOME/.pyenv"' >>~/.profile
+/bin/grep 'export PYENV_ROOT="$HOME/.pyenv"' "$HOME"/.profile || {
+    /bin/echo 'export PYENV_ROOT="$HOME/.pyenv"' >>"$HOME"/.profile
 }
 
 # shellcheck disable=SC2016
 /bin/grep \
-    'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' ~/.profile || {
+    'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' "$HOME"/.profile || {
     /bin/echo \
-        'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >>~/.profile
+        'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >>"$HOME"/.profile
 }
 
 # shellcheck disable=SC2016
-/bin/grep 'eval "$(pyenv init -)"' ~/.profile || {
-    /bin/echo 'eval "$(pyenv init -)"' >>~/.profile
+/bin/grep 'eval "$(pyenv init -)"' "$HOME"/.profile || {
+    /bin/echo 'eval "$(pyenv init -)"' >>"$HOME"/.profile
 }
 
 ## Adopt changes
-source ~/.bashrc
+source "$HOME"/.bashrc
 
 ## Set global python version
 read -r -p "Enter the desired minor python version, eg 3.12: " global_python_version
@@ -66,7 +66,7 @@ chmod 600 "$HOME"/.ssh/authorized_keys
 
 echo "* Check if public key is in authorized_keys"
 pk=$(cat "$HOME"/.ssh/id_rsa.pub)
-grep -Fxq "$pk" ~/.ssh/authorized_keys || echo "$pk" >>~/.ssh/authorized_keys
+grep -Fxq "$pk" "$HOME"/.ssh/authorized_keys || echo "$pk" >>"$HOME"/.ssh/authorized_keys
 
 echo "* PUBLIC KEY:"
 echo ""
