@@ -12,11 +12,11 @@ server_url=$1
 
 [ -z "$server_url" ] && {
     /bin/echo "Enter a server url"
-    exit 1
+    return 1
 }
 
 /bin/echo "* Install poet"
-/bin/mkdir -p "$HOME"/.local/bin && cd "$HOME"/.local/bin || exit 1
+/bin/mkdir -p "$HOME"/.local/bin && cd "$HOME"/.local/bin || return 1
 [ -d "./poet" ] || /bin/git clone git@"$server_url":/opt/global/bin-poet poet
 # shellcheck disable=SC2016
 /bin/grep 'export PATH="$PATH:$HOME/.local/bin/poet"' "$HOME"/.bashrc || {
@@ -24,12 +24,12 @@ server_url=$1
 }
 
 /bin/echo "* Install installer"
-cd "$HOME" || exit 1
+cd "$HOME" || return 1
 [ -d "./poet-install" ] || /bin/git clone git@"$server_url":/opt/global/poet-install
 
 /bin/echo "* Install poet-install inventory"
-cd "$HOME" || exit 1
-mkdir -p "$HOME"/01_Inventory && cd "$HOME"/01_Inventory || exit 1
+cd "$HOME" || return 1
+mkdir -p "$HOME"/01_Inventory && cd "$HOME"/01_Inventory || return 1
 [ -d "./install" ] || /bin/git clone git@"$server_url":/opt/global/install-inventory install
 
 /bin/echo "* Run poet for installer"
@@ -37,6 +37,6 @@ mkdir -p "$HOME"/01_Inventory && cd "$HOME"/01_Inventory || exit 1
 . "$HOME"/.profile
 # shellcheck disable=SC1091
 . "$HOME"/.bashrc
-cd "$HOME" || exit 1
+cd "$HOME" || return 1
 # shellcheck disable=SC1091
 . "$HOME"/.local/bin/poet/poet installd
